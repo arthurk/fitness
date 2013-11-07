@@ -1,0 +1,72 @@
+[
+{
+  "pk": 1, 
+  "model": "exercise.exercise", 
+  "fields": {
+    "name": "Squat"
+  }
+},
+{
+  "pk": 2, 
+  "model": "exercise.exercise", 
+  "fields": {
+    "name": "Bench Press"
+  }
+},
+{
+  "pk": 3, 
+  "model": "exercise.exercise", 
+  "fields": {
+    "name": "Deadlift"
+  }
+},
+{
+  "pk": 4, 
+  "model": "exercise.exercise", 
+  "fields": {
+    "name": "Pull-Up"
+  }
+},
+{
+  "pk": 5, 
+  "model": "exercise.exercise", 
+  "fields": {
+    "name": "Overhead Press"
+  }
+},
+{
+  "pk": 6, 
+  "model": "exercise.exercise", 
+  "fields": {
+    "name": "Chin-Ups"
+  }
+},
+{
+  "pk": 7, 
+  "model": "exercise.exercise", 
+  "fields": {
+    "name": "Sit-Ups"
+  }
+},
+{
+  "pk": 8, 
+  "model": "exercise.exercise", 
+  "fields": {
+    "name": "Hanging Leg Raises"
+  }
+},
+{
+  "pk": 9, 
+  "model": "exercise.exercise", 
+  "fields": {
+    "name": "Pendlay Rows"
+  }
+},
+{
+  "pk": 10, 
+  "model": "exercise.exercise", 
+  "fields": {
+    "name": "Dips"
+  }
+}
+]

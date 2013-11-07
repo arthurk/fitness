@@ -1,0 +1,50 @@
+{% extends "admin/change_form.html" %}
+
+{% block after_field_sets %}
+<fieldset class="module aligned">
+    <div class="form-row">
+        <div>
+            <label for="recipe">Recipe:</label>
+            <select id="recipes">
+                <option value="">---</option>
+                {% for recipe in recipes %}
+                    <option value="{{ recipe.id }}">{{ recipe }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</fieldset>
+
+<script type="text/javascript">
+(function($) {
+ var recipe_select = $('#recipes');
+
+ $('#recipes').change(function() {
+     // get foods in recipe
+     $.ajax({
+       type: "GET",
+       url: "{% url 'food.views.get_foods_for_id' %}",
+       data: { id: recipe_select.val() }
+     })
+     .done(function(resp) {
+        // for each ingredient in recipe
+        $.each(resp, function(i, ingredient) {
+            // add new row
+            $('tr.add-row td a').trigger('click');
+
+            // get id of last row
+            var row_id = $('#foodlog_set-group .dynamic-foodlog_set:last').attr('id');
+
+            // populate row
+            $('#' + row_id + ' .field-food select').val(ingredient.food_id);
+            $('#' + row_id + ' .field-amount input').val(ingredient.amount);
+            $('#' + row_id + ' .field-unit select').val(ingredient.unit);
+
+            // set select element back to initial value
+            recipe_select.val('');
+        });
+     });
+  });
+})(django.jQuery);
+</script>
+{% endblock %}

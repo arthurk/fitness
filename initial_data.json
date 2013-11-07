@@ -1,0 +1,28 @@
+[
+  {
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "arthur", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2013-09-21T10:59:08.853Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$SHhe3SEINmUU$aw4J8eCL7QrFNdaY2EWUEc7qs91XP7QjkXkvS1Dlcxc=", 
+        "email": "arthur@arthurkoziel.com", 
+        "date_joined": "2013-09-21T10:59:08.853Z"
+    }
+  },
+  {
+    "pk": "ebz8w0rxeusxoct1a9nrhzicjj230lzf", 
+    "model": "sessions.session", 
+    "fields": {
+        "expire_date": "2013-10-05T11:06:37.787Z", 
+        "session_data": "NTdkZjBhMTUyZmIwN2Y0NTA1NDdmMzRiNTQ2MWQ2OWU3OTgxNDc5NDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0="
+    }
+  }
+]

@@ -1,0 +1,171 @@
+[
+{
+  "pk": 1, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 66, 
+    "name": "Oats", 
+    "fat": 7, 
+    "amount": 100, 
+    "protein": 17, 
+    "kcal": 389, 
+    "unit": "MG"
+  }
+},
+{
+  "pk": 2, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 1, 
+    "name": "Egg", 
+    "fat": 10, 
+    "amount": 100, 
+    "protein": 13, 
+    "kcal": 143, 
+    "unit": "MG"
+  }
+},
+{
+  "pk": 3, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 5, 
+    "name": "Milk 3,5%", 
+    "fat": 4, 
+    "amount": 100, 
+    "protein": 3, 
+    "kcal": 65, 
+    "unit": "ML"
+  }
+},
+{
+  "pk": 4, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 14, 
+    "name": "Walnut", 
+    "fat": 65, 
+    "amount": 100, 
+    "protein": 15, 
+    "kcal": 654, 
+    "unit": "MG"
+  }
+},
+{
+  "pk": 5, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 0, 
+    "name": "Flax Seed", 
+    "fat": 31, 
+    "amount": 100, 
+    "protein": 24, 
+    "kcal": 474, 
+    "unit": "MG"
+  }
+},
+{
+  "pk": 6, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 74, 
+    "name": "Rice", 
+    "fat": 7, 
+    "amount": 100, 
+    "protein": 7, 
+    "kcal": 345, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 7, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 15, 
+    "name": "Potato", 
+    "fat": 0, 
+    "amount": 100, 
+    "protein": 2, 
+    "kcal": 71, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 8, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 20, 
+    "name": "Sunflower Seed", 
+    "fat": 51, 
+    "amount": 100, 
+    "protein": 21, 
+    "kcal": 584, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 9, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 14, 
+    "name": "Kakaopulver", 
+    "fat": 21, 
+    "amount": 100, 
+    "protein": 19, 
+    "kcal": 385, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 10, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 53, 
+    "name": "RUF Raspelschokolade, Zartbitter", 
+    "fat": 29, 
+    "amount": 100, 
+    "protein": 5, 
+    "kcal": 516, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 11, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 14, 
+    "name": "Kidney Bohnen", 
+    "fat": 1, 
+    "amount": 100, 
+    "protein": 9, 
+    "kcal": 111, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 12, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 0, 
+    "name": "Grana Padano", 
+    "fat": 28, 
+    "amount": 100, 
+    "protein": 33, 
+    "kcal": 384, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 13, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 1, 
+    "name": "Kerrygold Butter", 
+    "fat": 83, 
+    "amount": 100, 
+    "protein": 1, 
+    "kcal": 784, 
+    "unit": "G"
+  }
+}
+]
