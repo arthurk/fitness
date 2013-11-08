@@ -1,6 +1,7 @@
+import json
+
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.utils import simplejson
 
 from food.models import Recipe, Food
 
@@ -19,5 +20,5 @@ def get_foods_for_id(request):
             'amount': ingredient.amount,
             'unit': ingredient.unit,
         })
-    data = simplejson.dumps(resp)
+    data = json.dumps(resp)
     return HttpResponse(data, mimetype='application/json')
