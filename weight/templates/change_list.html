@@ -17,17 +17,6 @@
     </style>
   {% endif %}
 
-  <script type="text/javascript" src="{% static "js/d3.v3.min.js" %}"></script>
-
-   <style type="text/css">
-       div.bar {
-           display: inline-block;
-           width: 20px;
-           height: 75px;   /* Gets overriden by D3-assigned height below */
-           margin-right: 2px;
-           background-color: teal;
-       }
-   </style>
 {% endblock %}
 
 {% block extrahead %}
@@ -43,63 +32,70 @@
 </script>
 {% endif %}{% endif %}
 
+<script type="text/javascript" src="{% static "js/d3.v3.min.js" %}"></script>
 <script type="text/javascript">
 (function($) {
     $(document).ready(function($) {
-        // width and height
-        var w = 500;
-        var h = 100;
-        var barPadding = 1;
-
-
-        var svg = d3.select("#chart")
-                    .append("svg")
-                    .attr("width", w)
-                    .attr("height", h);
-
-
-        $.get({% url 'weight.views.get_all_bodyweight_numbers' %},
+        // ajax call
+        $.get({% url 'weight.views.get_all_bodyweight_numbers' %}, 
             function(data) { 
                 var dataset = data;
-        
-            svg.selectAll("rect")
-               .data(dataset)
-               .enter()
-               .append("rect")
-               .attr("x", function(d, i) {
-                    return i * (w / dataset.length);
-               })
-               .attr("y", function(d) {
-                    return h - d;
-               })
-               .attr("width", w / dataset.length - barPadding)
-               .attr("height", function(d) {
-                    return d;
-               })
-               .attr("fill", "#417690");
 
+                var w = 500;
+                var h = 200;
 
-            svg.selectAll("text")
-               .data(dataset)
-               .enter()
-               .append("text")
-               .text(function(d){
-                    return d;
-                })
-                .attr("x", function(d, i) {
-                    return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
-                })
-                .attr("y", function(d) {
-                    return h - d + 14; 
-                })
-                .attr("text-anchor", "middle")
-                .attr("font-size", "11px")
-               .attr("fill", "white");
-            }); // end ajax
+                var xScale = d3.scale.ordinal()
+                                .domain(d3.range(dataset.length))
+                                .rangeRoundBands([0, w], 0.05);
+
+                var yScale = d3.scale.linear()
+                                .domain([d3.min(dataset), d3.max(dataset)])
+                                .range([20, h]);
+
+                // create SVG element
+                var svg = d3.select("#chart")
+                            .append("svg")
+                            .attr("width", w)
+                            .attr("height", h);
+
+                // create bars
+                svg.selectAll("rect")
+                    .data(dataset)
+                    .enter()
+                    .append("rect")
+                    .attr("x", function(d, i) {
+                        return xScale(i);
+                    })
+                    .attr("y", function(d, i) {
+                        return h - yScale(d);     
+                    })
+                    .attr("width", xScale.rangeBand())
+                    .attr("height", function(d) { 
+                        return yScale(d) 
+                    })
+                    .attr("fill", "#417690");
+                   
+                // create Labels
+                svg.selectAll("text")
+                    .data(dataset)
+                    .enter()
+                    .append("text")
+                    .text(function(d) {
+                        return d;
+                    })
+                    .attr("x", function(d, i) {
+                        return xScale(i) + xScale.rangeBand() / 2;
+                    })
+                    .attr("y", function(d, i) {
+                        return h - yScale(d) + 15;
+                    })
+                    .attr("font-size", "10px")
+                    .attr("text-anchor", "middle")
+                    .attr("fill", "white");
+        }); // end ajax
     });
 })(django.jQuery);
 </script>
-
 {% endblock %}
 
 {% block bodyclass %}change-list{% endblock %}
