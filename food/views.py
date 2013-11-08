@@ -21,4 +21,4 @@ def get_foods_for_id(request):
             'unit': ingredient.unit,
         })
     data = json.dumps(resp)
-    return HttpResponse(data, mimetype='application/json')
+    return HttpResponse(data, content_type='application/json')

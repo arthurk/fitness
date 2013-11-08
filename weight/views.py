@@ -11,4 +11,4 @@ def get_all_bodyweight_numbers(request):
     """
     weights = [n.bodyweight for n in Log.objects.all()]
     data = json.dumps(weights)
-    return HttpResponse(data, mimetype='application/json')
+    return HttpResponse(data, content_type='application/json')
