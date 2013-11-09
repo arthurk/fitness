@@ -8,7 +8,7 @@ UNIT_CHOICES = (
 
 class Log(models.Model):
     day = models.DateField(default=date.today)
-    bodyweight = models.IntegerField()
+    bodyweight = models.FloatField()
     unit = models.CharField(max_length=2,
                             choices=UNIT_CHOICES,
                             default=UNIT_CHOICES[0])
