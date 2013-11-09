@@ -23,6 +23,6 @@ class Set(models.Model):
     reps = models.IntegerField()
 
     def __unicode__(self):
-        return str('%s %sx%s' % (self.exercise,
+        return '%s %sx%s' % (self.exercise,
                                 self.weight,
-                                self.reps))
+                                self.reps)

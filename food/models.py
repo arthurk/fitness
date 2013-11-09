@@ -112,5 +112,5 @@ class FoodLog(models.Model):
         return total
 
     def __unicode__(self):
-        return str('%s%s %s' % (self.amount, self.unit, self.food)) 
+        return '%s%s %s' % (self.amount, self.unit, self.food)
 
