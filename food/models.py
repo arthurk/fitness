@@ -38,6 +38,15 @@ class Food(models.Model):
     def __unicode__(self):
         return self.name
 
+class Serving(models.Model):
+    """
+    Serving for a Food
+    For example "1 Tablespoon Sugar" -> "15g Sugar"
+    """
+    food = models.ForeignKey(Food)
+    name = models.CharField(max_length=200)
+    amount = models.IntegerField(default=100)
+
 class Recipe(models.Model):
     name = models.CharField(max_length=200)
     foods = models.ManyToManyField(Food, through='Ingredient')
@@ -89,9 +98,7 @@ class FoodLog(models.Model):
     log = models.ForeignKey(Log)
     food = models.ForeignKey(Food)
     amount = models.IntegerField()
-    unit = models.CharField(max_length=2,
-                            choices=UNIT_CHOICES,
-                            default=UNIT_CHOICES[0])
+    unit = models.CharField(max_length=2)
 
     def totals(self):
         "Returns totals"

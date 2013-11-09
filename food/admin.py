@@ -1,6 +1,14 @@
 from django.contrib import admin
 
-from food.models import Food, Recipe, Ingredient, Log, FoodLog
+from food.models import Food, Recipe, Ingredient, Log, FoodLog, Serving
+
+class ServingInline(admin.TabularInline):
+    model = Serving
+    extra = 1
+
+class FoodAdmin(admin.ModelAdmin):
+    inlines = (ServingInline,)
+    view_on_site = False
 
 class IngredientInline(admin.TabularInline):
     model = Ingredient
@@ -9,6 +17,7 @@ class IngredientInline(admin.TabularInline):
 class RecipeAdmin(admin.ModelAdmin):
     inlines = (IngredientInline,)
     list_display = ('name', 'kcal', 'protein', 'carbs', 'fat')
+    view_on_site = False
 
     def kcal(self, obj):
         return obj.totals()['kcal']
@@ -43,6 +52,7 @@ class FoodLogInline(admin.TabularInline):
 class LogAdmin(admin.ModelAdmin):
     inlines = (FoodLogInline,)
     list_display = ('day', 'kcal', 'protein', 'carbs', 'fat')
+    view_on_site = False
 
     def add_view(self, request, form_url='', extra_context=None):
         extra_context = extra_context or {}
@@ -69,6 +79,6 @@ class LogAdmin(admin.ModelAdmin):
         return int(round(obj.totals()['fat']))
 
 #  your models here.
-admin.site.register(Food)
+admin.site.register(Food, FoodAdmin)
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Log, LogAdmin)
