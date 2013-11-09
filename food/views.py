@@ -3,7 +3,19 @@ import json
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from food.models import Recipe, Food
+from food.models import Recipe, Food, Log
+
+def get_log_totals(request):
+    """
+    Returns totals for a day (Log object)
+    """
+    log = Log.objects.get(id=request.GET['id'])
+    totals = log.totals()
+    resp = [{'label': 'Protein', 'value': totals['protein']},
+            {'label': 'Carbs', 'value':  totals['carbs']}, 
+            {'label': 'Fat', 'value': totals['fat']}]
+    data = json.dumps(resp)
+    return HttpResponse(data, content_type='application/json')
 
 def get_foods_for_id(request):
     """
