@@ -19,9 +19,9 @@ class Food(models.Model):
     kcal = models.IntegerField()
 
     # macros
-    protein = models.IntegerField()
-    carbs = models.IntegerField()
-    fat = models.IntegerField()
+    protein = models.FloatField()
+    carbs = models.FloatField()
+    fat = models.FloatField()
     # todo: add fiber
 
     # minerals
