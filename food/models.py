@@ -35,6 +35,9 @@ class Food(models.Model):
     zinc = models.IntegerField(blank=True, null=True)
     """
 
+    class Meta:
+        ordering = ['name']
+
     def __unicode__(self):
         return self.name
 
