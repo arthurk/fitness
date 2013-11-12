@@ -59,6 +59,11 @@
                 }); // end each
             }); // end done
         }); // end change
+
+        // focus on select box when another row is added
+        $('.add-row a').click(function() {
+            console.log($('.dynamic-foodlog_set .field-food select').last().focus());
+        });
     });
 })(django.jQuery);
 </script>
