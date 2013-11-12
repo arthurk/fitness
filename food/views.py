@@ -1,5 +1,6 @@
 import json
 
+from django.core import serializers
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -15,6 +16,14 @@ def get_log_totals(request):
             {'label': 'Carbs', 'value':  totals['carbs']}, 
             {'label': 'Fat', 'value': totals['fat']}]
     data = json.dumps(resp)
+    return HttpResponse(data, content_type='application/json')
+
+def get_food(request):
+    """
+    Returns a JSON serialized Food object for ID
+    """
+    food_id = request.GET['id']
+    data = serializers.serialize("json", Food.objects.filter(pk=food_id))
     return HttpResponse(data, content_type='application/json')
 
 def get_foods_for_id(request):

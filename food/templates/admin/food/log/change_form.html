@@ -18,34 +18,48 @@
 
 <script type="text/javascript">
 (function($) {
- var recipe_select = $('#recipes');
+    $(document).ready(function($) {
+        // set "unit" to the same value that was specified in the Food object
+        $("select[id^='id_foodlog_set']").change(function() {
+            var foodlog_id = $(this).attr("id").match(/[\d]+/);
+            var foodlog_unit = $('#id_foodlog_set-'+foodlog_id+'-unit');
+            var new_food_id = $(this).val();
 
- $('#recipes').change(function() {
-     // get foods in recipe
-     $.ajax({
-       type: "GET",
-       url: "{% url 'food.views.get_foods_for_id' %}",
-       data: { id: recipe_select.val() }
-     })
-     .done(function(resp) {
-        // for each ingredient in recipe
-        $.each(resp, function(i, ingredient) {
-            // add new row
-            $('tr.add-row td a').trigger('click');
-
-            // get id of last row
-            var row_id = $('#foodlog_set-group .dynamic-foodlog_set:last').attr('id');
-
-            // populate row
-            $('#' + row_id + ' .field-food select').val(ingredient.food_id);
-            $('#' + row_id + ' .field-amount input').val(ingredient.amount);
-            $('#' + row_id + ' .field-unit select').val(ingredient.unit);
-
-            // set select element back to initial value
-            recipe_select.val('');
+            $.get({% url 'get_food' %}, {id: new_food_id}, function(data) {
+                var new_food_unit = data[0]['fields']['unit'];
+                foodlog_unit.val(new_food_unit);
+            });
         });
-     });
-  });
+
+        // add all Foods that are specified in Recipe
+        var recipe_select = $('#recipes');
+        $('#recipes').change(function() {
+            // get foods in recipe
+            $.ajax({
+              type: "GET",
+              url: "{% url 'food.views.get_foods_for_id' %}",
+              data: { id: recipe_select.val() }
+            })
+            .done(function(resp) {
+                // for each ingredient in recipe
+                $.each(resp, function(i, ingredient) {
+                    // add new row
+                    $('tr.add-row td a').trigger('click');
+
+                    // get id of last row
+                    var row_id = $('#foodlog_set-group .dynamic-foodlog_set:last').attr('id');
+
+                    // populate row
+                    $('#' + row_id + ' .field-food select').val(ingredient.food_id);
+                    $('#' + row_id + ' .field-amount input').val(ingredient.amount);
+                    $('#' + row_id + ' .field-unit select').val(ingredient.unit);
+
+                    // set select element back to initial value
+                    recipe_select.val('');
+                }); // end each
+            }); // end done
+        }); // end change
+    });
 })(django.jQuery);
 </script>
 {% endblock %}
