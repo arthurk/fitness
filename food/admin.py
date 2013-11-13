@@ -20,16 +20,16 @@ class RecipeAdmin(admin.ModelAdmin):
     view_on_site = False
 
     def kcal(self, obj):
-        return obj.totals()['kcal']
+        return int(round(obj.totals()['kcal']))
 
     def protein(self, obj):
-        return obj.totals()['protein']
+        return int(round(obj.totals()['protein']))
 
     def carbs(self, obj):
-        return obj.totals()['carbs']
+        return int(round(obj.totals()['carbs']))
 
     def fat(self, obj):
-        return obj.totals()['fat']
+        return int(round(obj.totals()['fat']))
 
 class FoodLogInline(admin.TabularInline):
     model = FoodLog
@@ -78,7 +78,6 @@ class LogAdmin(admin.ModelAdmin):
     def fat(self, obj):
         return int(round(obj.totals()['fat']))
 
-#  your models here.
 admin.site.register(Food, FoodAdmin)
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Log, LogAdmin)
