@@ -3,11 +3,11 @@
   "pk": 1, 
   "model": "food.food", 
   "fields": {
-    "carbs": 66, 
-    "name": "Oats", 
-    "fat": 7, 
+    "carbs": 66.0, 
+    "name": "Haferflocken", 
+    "fat": 7.0, 
     "amount": 100, 
-    "protein": 17, 
+    "protein": 17.0, 
     "kcal": 389, 
     "unit": "MG"
   }
@@ -16,24 +16,24 @@
   "pk": 2, 
   "model": "food.food", 
   "fields": {
-    "carbs": 1, 
-    "name": "Egg", 
-    "fat": 10, 
+    "carbs": 1.0, 
+    "name": "Ei", 
+    "fat": 10.0, 
     "amount": 100, 
-    "protein": 13, 
+    "protein": 13.0, 
     "kcal": 143, 
-    "unit": "MG"
+    "unit": "G"
   }
 },
 {
   "pk": 3, 
   "model": "food.food", 
   "fields": {
-    "carbs": 5, 
-    "name": "Milk 3,5%", 
-    "fat": 4, 
+    "carbs": 5.0, 
+    "name": "Milch 3,5%", 
+    "fat": 4.0, 
     "amount": 100, 
-    "protein": 3, 
+    "protein": 3.0, 
     "kcal": 65, 
     "unit": "ML"
   }
@@ -42,11 +42,11 @@
   "pk": 4, 
   "model": "food.food", 
   "fields": {
-    "carbs": 14, 
-    "name": "Walnut", 
-    "fat": 65, 
+    "carbs": 14.0, 
+    "name": "Walnuss", 
+    "fat": 65.0, 
     "amount": 100, 
-    "protein": 15, 
+    "protein": 15.0, 
     "kcal": 654, 
     "unit": "MG"
   }
@@ -55,11 +55,11 @@
   "pk": 5, 
   "model": "food.food", 
   "fields": {
-    "carbs": 0, 
-    "name": "Flax Seed", 
-    "fat": 31, 
+    "carbs": 0.0, 
+    "name": "Leinsamen", 
+    "fat": 31.0, 
     "amount": 100, 
-    "protein": 24, 
+    "protein": 24.0, 
     "kcal": 474, 
     "unit": "MG"
   }
@@ -68,11 +68,11 @@
   "pk": 6, 
   "model": "food.food", 
   "fields": {
-    "carbs": 74, 
-    "name": "Rice", 
-    "fat": 7, 
+    "carbs": 74.0, 
+    "name": "Reis", 
+    "fat": 7.0, 
     "amount": 100, 
-    "protein": 7, 
+    "protein": 7.0, 
     "kcal": 345, 
     "unit": "G"
   }
@@ -81,11 +81,11 @@
   "pk": 7, 
   "model": "food.food", 
   "fields": {
-    "carbs": 15, 
-    "name": "Potato", 
-    "fat": 0, 
+    "carbs": 15.0, 
+    "name": "Kartoffel", 
+    "fat": 0.0, 
     "amount": 100, 
-    "protein": 2, 
+    "protein": 2.0, 
     "kcal": 71, 
     "unit": "G"
   }
@@ -94,11 +94,11 @@
   "pk": 8, 
   "model": "food.food", 
   "fields": {
-    "carbs": 20, 
-    "name": "Sunflower Seed", 
-    "fat": 51, 
+    "carbs": 20.0, 
+    "name": "Sonnenblumenkerne", 
+    "fat": 51.0, 
     "amount": 100, 
-    "protein": 21, 
+    "protein": 21.0, 
     "kcal": 584, 
     "unit": "G"
   }
@@ -107,11 +107,11 @@
   "pk": 9, 
   "model": "food.food", 
   "fields": {
-    "carbs": 14, 
+    "carbs": 14.0, 
     "name": "Kakaopulver", 
-    "fat": 21, 
+    "fat": 21.0, 
     "amount": 100, 
-    "protein": 19, 
+    "protein": 19.0, 
     "kcal": 385, 
     "unit": "G"
   }
@@ -120,11 +120,11 @@
   "pk": 10, 
   "model": "food.food", 
   "fields": {
-    "carbs": 53, 
+    "carbs": 53.0, 
     "name": "RUF Raspelschokolade, Zartbitter", 
-    "fat": 29, 
+    "fat": 29.0, 
     "amount": 100, 
-    "protein": 5, 
+    "protein": 5.0, 
     "kcal": 516, 
     "unit": "G"
   }
@@ -133,11 +133,11 @@
   "pk": 11, 
   "model": "food.food", 
   "fields": {
-    "carbs": 14, 
+    "carbs": 14.0, 
     "name": "Kidney Bohnen", 
-    "fat": 1, 
+    "fat": 1.0, 
     "amount": 100, 
-    "protein": 9, 
+    "protein": 9.0, 
     "kcal": 111, 
     "unit": "G"
   }
@@ -146,11 +146,11 @@
   "pk": 12, 
   "model": "food.food", 
   "fields": {
-    "carbs": 0, 
+    "carbs": 0.0, 
     "name": "Grana Padano", 
-    "fat": 28, 
+    "fat": 28.0, 
     "amount": 100, 
-    "protein": 33, 
+    "protein": 33.0, 
     "kcal": 384, 
     "unit": "G"
   }
@@ -159,12 +159,181 @@
   "pk": 13, 
   "model": "food.food", 
   "fields": {
-    "carbs": 1, 
+    "carbs": 1.0, 
     "name": "Kerrygold Butter", 
-    "fat": 83, 
+    "fat": 83.0, 
     "amount": 100, 
-    "protein": 1, 
+    "protein": 1.0, 
     "kcal": 784, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 14, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 82.0, 
+    "name": "Monin Praline Nuss Sirup", 
+    "fat": 0.0, 
+    "amount": 100, 
+    "protein": 0.0, 
+    "kcal": 328, 
+    "unit": "ML"
+  }
+},
+{
+  "pk": 15, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 1.0, 
+    "name": "H\u00e4hnchenbrustfilet", 
+    "fat": 2.0, 
+    "amount": 100, 
+    "protein": 24.0, 
+    "kcal": 110, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 16, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 4.0, 
+    "name": "Paprikastreifen-Mix", 
+    "fat": 0.0, 
+    "amount": 100, 
+    "protein": 1.0, 
+    "kcal": 20, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 17, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 2.0, 
+    "name": "Brokkoli-R\u00f6schen (TK)", 
+    "fat": 0.0, 
+    "amount": 100, 
+    "protein": 3.0, 
+    "kcal": 16, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 18, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 20.0, 
+    "name": "Banane", 
+    "fat": 0.0, 
+    "amount": 100, 
+    "protein": 1.0, 
+    "kcal": 90, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 19, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 75.1, 
+    "name": "Honig", 
+    "fat": 0.0, 
+    "amount": 100, 
+    "protein": 0.4, 
+    "kcal": 306, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 20, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 3.1, 
+    "name": "Brechbohnen", 
+    "fat": 0.0, 
+    "amount": 100, 
+    "protein": 3.0, 
+    "kcal": 30, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 21, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 0.0, 
+    "name": "Hackfleisch, gemischt", 
+    "fat": 18.0, 
+    "amount": 100, 
+    "protein": 18.0, 
+    "kcal": 234, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 22, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 3.5, 
+    "name": "Rotkohl", 
+    "fat": 0.2, 
+    "amount": 100, 
+    "protein": 1.5, 
+    "kcal": 23, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 23, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 4.1, 
+    "name": "Passierte Tomaten", 
+    "fat": 0.2, 
+    "amount": 100, 
+    "protein": 1.4, 
+    "kcal": 30, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 24, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 3.6, 
+    "name": "Gehackte Tomaten", 
+    "fat": 0.2, 
+    "amount": 100, 
+    "protein": 1.2, 
+    "kcal": 25, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 25, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 2.5, 
+    "name": "Porree", 
+    "fat": 0.3, 
+    "amount": 100, 
+    "protein": 2.3, 
+    "kcal": 23, 
+    "unit": "G"
+  }
+},
+{
+  "pk": 26, 
+  "model": "food.food", 
+  "fields": {
+    "carbs": 2.3, 
+    "name": "Blumenkohl", 
+    "fat": 0.3, 
+    "amount": 100, 
+    "protein": 2.5, 
+    "kcal": 23, 
     "unit": "G"
   }
 }
