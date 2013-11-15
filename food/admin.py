@@ -50,6 +50,7 @@ class FoodLogInline(admin.TabularInline):
         return int(round(obj.totals()['fat']))
 
 class LogAdmin(admin.ModelAdmin):
+    save_as = True
     inlines = (FoodLogInline,)
     list_display = ('day', 'kcal', 'protein', 'carbs', 'fat')
     view_on_site = False
