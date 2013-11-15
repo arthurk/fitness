@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script type="text/javascript" src="d3.v3.min.js"></script>
+        <style type="text/css">
+            .slice text {
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+            var w = 300,
+                h = 300,
+                r = 100,
+                color = d3.scale.category20c();
+            
+            var data = [{"label":"Protein", "value":192},
+                        {"label":"Carbs", "value":325},
+                        {"label":"Fat", "value":106}];
+
+            var total = 0;
+            for (var i = 0; i < data.length; i++) { 
+                total = total + data[i].value; 
+            }
+
+            var vis = d3.select("body")
+                        .append("svg:svg")
+                        .data([data])
+                            .attr("width", w)
+                            .attr("height", h)
+                        .append("svg:g")
+                            .attr("transform", "translate("+r+","+r+")")
+
+            var arc = d3.svg.arc()
+                        .outerRadius(r);
+
+            var pie = d3.layout.pie()
+                        .value(function(d) { return d.value; });
+
+            var arcs = vis.selectAll("g.slice")
+                          .data(pie)
+                          .enter()
+                          .append("svg:g")
+                          .attr("class", "slice");
+
+            arcs.append("svg:path")
+                .attr("fill", function(d, i) { return color(i); } )
+                .attr("d", arc);
+
+            arcs.append("svg:text")
+                .attr("transform", function(d) {
+                d.innerRadius = 0;
+                d.outerRadius = r;
+                return "translate(" + arc.centroid(d) + ")";
+            })
+            .attr("text-anchor", "middle")
+            .text(function(d, i) {
+                p = (100/total) * d.data.value;
+                return d.data.label + " ("+ Math.round(p) +"%)"; 
+            });
+        </script>
+    </body>
+</html>

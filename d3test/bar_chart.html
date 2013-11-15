@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script type="text/javascript" src="d3.v3.min.js"></script>
+        <style type="text/css">
+            .chart div {
+              font: 10px sans-serif;
+              background-color: steelblue;
+              text-align: right;
+              padding: 3px;
+              margin: 1px;
+              color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="chart"></div>
+
+        <script type="text/javascript">
+            var w = 500;
+            var h = 200;
+            var dataset = [86, 86, 87, 88, 89, 88, 87, 86, 85, 84, 83, 82 ];
+
+            var xScale = d3.scale.ordinal()
+                            .domain(d3.range(dataset.length))
+                            .rangeRoundBands([0, w], 0.05);
+
+            var yScale = d3.scale.linear()
+                            .domain([d3.min(dataset), d3.max(dataset)])
+                            .range([20, h]);
+
+            //Create SVG element
+            var svg = d3.select("body")
+                        .append("svg")
+                        .attr("width", w)
+                        .attr("height", h);
+
+            //Create bars
+            svg.selectAll("rect")
+               .data(dataset)
+               .enter()
+               .append("rect")
+               .attr("x", function(d, i) {
+                   return xScale(i);
+               })
+               .attr("y", function(d, i) {
+                   return h - yScale(d);     
+               })
+               .attr("width", xScale.rangeBand())
+               .attr("height", function(d) { 
+                   return yScale(d) 
+               })
+               .attr("fill", "darkblue");
+               
+            // Create Labels
+            svg.selectAll("text")
+                .data(dataset)
+                .enter()
+                .append("text")
+                .text(function(d) {
+                    return d;
+                })
+                .attr("x", function(d, i) {
+                    return xScale(i) + xScale.rangeBand() / 2;
+                })
+                .attr("y", function(d, i) {
+                    return h - yScale(d) + 15;
+                })
+                .attr("font-size", "11px")
+                .attr("text-anchor", "middle")
+                .attr("font-family", "sans-serif")
+                .attr("fill", "white");
+
+        </script>
+    </body>
+</html>
