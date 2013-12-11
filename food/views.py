@@ -1,22 +1,10 @@
 import json
 
 from django.core import serializers
-from django.shortcuts import render
 from django.http import HttpResponse
 
-from food.models import Recipe, Food, Log
+from food.models import Recipe, Food
 
-def get_log_totals(request):
-    """
-    Returns totals for a day (Log object)
-    """
-    log = Log.objects.get(id=request.GET['id'])
-    totals = log.totals()
-    resp = [{'label': 'Protein', 'value': totals['protein']},
-            {'label': 'Carbs', 'value':  totals['carbs']}, 
-            {'label': 'Fat', 'value': totals['fat']}]
-    data = json.dumps(resp)
-    return HttpResponse(data, content_type='application/json')
 
 def get_food(request):
     """
@@ -25,6 +13,7 @@ def get_food(request):
     food_id = request.GET['id']
     data = serializers.serialize("json", Food.objects.filter(pk=food_id))
     return HttpResponse(data, content_type='application/json')
+
 
 def get_foods_for_id(request):
     """
@@ -37,7 +26,7 @@ def get_foods_for_id(request):
     resp = []
     for ingredient in ingredients:
         resp.append({
-            'food_id': ingredient.food_id, 
+            'food_id': ingredient.food_id,
             'amount': ingredient.amount,
             'unit': ingredient.unit,
         })
