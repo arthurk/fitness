@@ -102,7 +102,6 @@ class Log(models.Model):
 
     def totals(self):
         "Returns totals for the day"
-        print 10000000
         total = dict(kcal=0, protein=0, carbs=0, fat=0)
         for foodlog in self.foodlog_set.all():
             food = foodlog.food

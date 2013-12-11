@@ -16,10 +16,6 @@
     </div>
 </fieldset>
 
-{{ log.totals }}
-<br>
-{{ log.totals|jsonify }}
-
 <style type="text/css">
     td.field-unit input { width: 30px }
 </style>
@@ -81,6 +77,7 @@
 
 {{ block.super }}
 <script type="text/javascript" src="{% static "js/d3.v3.min.js" %}"></script>
+<p><strong>Total: </strong>{{ log.totals.kcal|floatformat:"0" }} kcal</p>
 <div id="chart"></div>
 <script type="text/javascript">
 (function($) {
@@ -138,6 +135,17 @@
             .text(function(d, i) {
                 p = (100/total) * d.data.value;
                 return d.data.label + " ("+ Math.round(p) +"%)";
+            });
+        arcs.append("svg:text")
+            .attr("transform", function(d) {
+                d.innerRadius = 0;
+                d.outerRadius = r;
+                return "translate(" + arc.centroid(d) + ")";})
+            .attr("text-anchor", "middle")
+            .attr("dy", "17px")
+            .text(function(d, i) {
+                p = d.data.value;
+                return Math.round(p) + " kcal";
             });
     }); // end document.ready
 })(django.jQuery);
