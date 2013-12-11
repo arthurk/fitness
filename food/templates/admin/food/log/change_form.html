@@ -1,5 +1,5 @@
 {% extends "admin/change_form.html" %}
-{% load admin_static %}
+{% load admin_static food_extras %}
 
 {% block after_field_sets %}
 <fieldset class="module aligned">
@@ -16,8 +16,12 @@
     </div>
 </fieldset>
 
+{{ log.totals }}
+<br>
+{{ log.totals|jsonify }}
+
 <style type="text/css">
-td.field-unit input { width: 30px }
+    td.field-unit input { width: 30px }
 </style>
 
 <script type="text/javascript">
@@ -74,6 +78,7 @@ td.field-unit input { width: 30px }
 {% endblock %}
 
 {% block content %}
+
 {{ block.super }}
 <script type="text/javascript" src="{% static "js/d3.v3.min.js" %}"></script>
 <div id="chart"></div>
@@ -85,52 +90,56 @@ td.field-unit input { width: 30px }
             r = 100,
             color = d3.scale.category20c();
 
-        // get totals for current day
-        $.get({% url 'food.views.get_log_totals' %}, 
-              {id: "{{ object_id }}"}, function(data) {
-            
-            // calculate total amount of macros (used to calc percentages)
-            var total = 0;
-            for (var i = 0; i < data.length; i++) { 
-                total = total + data[i].value; 
-            }
+        // convert data into d3.js compatible format
+        var totals = {{ log.totals|jsonify }};
+        var data = [
+            {"label": "Protein", "value": totals['protein']},
+            {"label": "Carbs", "value": totals['carbs']},
+            {"label": "Fat", "value": totals['fat']}];
 
-            // create svg element
-            var vis = d3.select("#chart")
-                        .append("svg:svg")
-                        .data([data])
-                            .attr("width", w)
-                            .attr("height", h)
-                        .append("svg:g")
-                            .attr("transform", "translate("+r+","+r+")")
+        // calculate total amount of macros (used to calc percentages)
+        var total = 0;
+        for (var i = 0; i < data.length; i++) { 
+            total = total + data[i].value; 
+        }
 
-            var arc = d3.svg.arc()
-                        .outerRadius(r);
+        // create svg element
+        var vis = d3.select("#chart")
+                    .append("svg:svg")
+                    .data([data])
+                        .attr("width", w)
+                        .attr("height", h)
+                    .append("svg:g")
+                        .attr("transform", "translate("+r+","+r+")")
 
-            var pie = d3.layout.pie()
-                        .value(function(d) { return d.value; });
+        var arc = d3.svg.arc()
+                    .outerRadius(r);
 
-            var arcs = vis.selectAll("g.slice")
-                          .data(pie)
-                          .enter()
-                          .append("svg:g")
-                          .attr("class", "slice");
+        var pie = d3.layout.pie()
+                    .value(function(d) { return d.value; });
 
-            arcs.append("svg:path")
-                .attr("fill", function(d, i) { return color(i); } )
-                .attr("d", arc);
+        var arcs = vis.selectAll("g.slice")
+                      .data(pie)
+                      .enter()
+                      .append("svg:g")
+                      .attr("class", "slice");
 
-            arcs.append("svg:text")
-                .attr("transform", function(d) {
-                    d.innerRadius = 0;
-                    d.outerRadius = r;
+        arcs.append("svg:path")
+            .attr("fill", function(d, i) { return color(i); } )
+            .attr("d", arc);
+
+        // add text
+        arcs.append("svg:text")
+            .attr("transform", function(d) {
+                d.innerRadius = 0;
+                d.outerRadius = r;
                 return "translate(" + arc.centroid(d) + ")";})
-                .attr("text-anchor", "middle")
-                .text(function(d, i) {
-                    p = (100/total) * d.data.value;
-                    return d.data.label + " ("+ Math.round(p) +"%)";});
-        }); // end ajax
-    });
+            .attr("text-anchor", "middle")
+            .text(function(d, i) {
+                p = (100/total) * d.data.value;
+                return d.data.label + " ("+ Math.round(p) +"%)";
+            });
+    }); // end document.ready
 })(django.jQuery);
 </script>
 {% endblock %}

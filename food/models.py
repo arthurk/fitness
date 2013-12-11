@@ -10,7 +10,12 @@ UNIT_CHOICES = (
     ('L', 'l'),
 )
 
+
 class Food(models.Model):
+    """
+    A Food object
+    For example "Oats"
+    """
     name = models.CharField(max_length=200)
     amount = models.IntegerField(default=100)
     unit = models.CharField(max_length=2,
@@ -41,6 +46,7 @@ class Food(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Serving(models.Model):
     """
     Serving for a Food
@@ -50,7 +56,11 @@ class Serving(models.Model):
     name = models.CharField(max_length=200)
     amount = models.IntegerField(default=100)
 
+
 class Recipe(models.Model):
+    """
+    A Recipe is a collection of Foods
+    """
     name = models.CharField(max_length=200)
     foods = models.ManyToManyField(Food, through='Ingredient')
     desc = models.TextField(blank=True, null=True)
@@ -60,7 +70,7 @@ class Recipe(models.Model):
         total = dict(kcal=0, protein=0, carbs=0, fat=0)
         for ingredient in self.ingredient_set.all():
             food = ingredient.food
-            multiplier = (ingredient.amount / food.amount) 
+            multiplier = (ingredient.amount / food.amount)
             total['kcal'] += multiplier * food.kcal
             total['protein'] += multiplier * food.protein
             total['carbs'] += multiplier * food.carbs
@@ -70,7 +80,11 @@ class Recipe(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Ingredient(models.Model):
+    """
+    An Ingredient is a Food used in a Recipe
+    """
     recipe = models.ForeignKey(Recipe)
     food = models.ForeignKey(Food)
     amount = models.IntegerField()
@@ -78,24 +92,30 @@ class Ingredient(models.Model):
                             choices=UNIT_CHOICES,
                             default=UNIT_CHOICES[0])
 
+
 class Log(models.Model):
+    """
+    A Log tracks all the foods eaten on a day
+    """
     day = models.DateField(default=date.today)
     foods = models.ManyToManyField(Food, through='FoodLog')
 
     def totals(self):
         "Returns totals for the day"
+        print 10000000
         total = dict(kcal=0, protein=0, carbs=0, fat=0)
         for foodlog in self.foodlog_set.all():
             food = foodlog.food
-            multiplier = (foodlog.amount / food.amount) 
+            multiplier = (foodlog.amount / food.amount)
             total['kcal'] += multiplier * food.kcal
             total['protein'] += multiplier * food.protein
             total['carbs'] += multiplier * food.carbs
             total['fat'] += multiplier * food.fat
         return total
-    
+
     def __unicode__(self):
         return str(self.day)
+
 
 class FoodLog(models.Model):
     log = models.ForeignKey(Log)
@@ -107,7 +127,7 @@ class FoodLog(models.Model):
         "Returns totals"
         total = dict(kcal=0, protein=0, carbs=0, fat=0)
         food = self.food
-        multiplier = (self.amount / food.amount) 
+        multiplier = (self.amount / food.amount)
         total['kcal'] = multiplier * food.kcal
         total['protein'] = multiplier * food.protein
         total['carbs'] = multiplier * food.carbs
@@ -116,4 +136,3 @@ class FoodLog(models.Model):
 
     def __unicode__(self):
         return '%s%s %s' % (self.amount, self.unit, self.food)
-

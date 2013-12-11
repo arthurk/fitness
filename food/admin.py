@@ -1,18 +1,24 @@
 from django.contrib import admin
+from django import forms
+from django.forms import ModelForm
 
 from food.models import Food, Recipe, Ingredient, Log, FoodLog, Serving
+
 
 class ServingInline(admin.TabularInline):
     model = Serving
     extra = 1
 
+
 class FoodAdmin(admin.ModelAdmin):
     inlines = (ServingInline,)
     view_on_site = False
 
+
 class IngredientInline(admin.TabularInline):
     model = Ingredient
     extra = 0
+
 
 class RecipeAdmin(admin.ModelAdmin):
     inlines = (IngredientInline,)
@@ -31,8 +37,20 @@ class RecipeAdmin(admin.ModelAdmin):
     def fat(self, obj):
         return int(round(obj.totals()['fat']))
 
+
+class FoodLogInlineForm(ModelForm):
+    serving = forms.ChoiceField(required=False, choices=(
+        (1, 'lol'),
+        (2, 'xxx'),
+    ))
+
+    class Meta:
+        model = FoodLog
+
+
 class FoodLogInline(admin.TabularInline):
     model = FoodLog
+    form = FoodLogInlineForm
     extra = 0
     readonly_fields = ('kcal', 'protein', 'carbs', 'fat')
     template = 'tabular.html'
@@ -49,6 +67,7 @@ class FoodLogInline(admin.TabularInline):
     def fat(self, obj):
         return int(round(obj.totals()['fat']))
 
+
 class LogAdmin(admin.ModelAdmin):
     save_as = True
     inlines = (FoodLogInline,)
@@ -60,10 +79,11 @@ class LogAdmin(admin.ModelAdmin):
         extra_context['recipes'] = Recipe.objects.all()
         return super(LogAdmin, self).add_view(
             request, form_url, extra_context=extra_context)
-    
+
     def change_view(self, request, object_id, form_url='', extra_context=None):
         extra_context = extra_context or {}
         extra_context['recipes'] = Recipe.objects.all()
+        extra_context['log'] = Log.objects.get(pk=object_id)
         return super(LogAdmin, self).change_view(
             request, object_id, form_url, extra_context=extra_context)
 
