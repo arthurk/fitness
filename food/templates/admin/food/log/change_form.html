@@ -68,6 +68,14 @@
         $('.add-row a').click(function() {
             console.log($('.dynamic-foodlog_set .field-food select').last().focus());
         });
+
+        // Add totals at the bottom of the table
+        var totals = {{ log.totals|jsonify }};
+        var add_row = $('tr.add-row');
+        add_row.find('td:first').attr('colspan', 5);
+        $.each(['kcal', 'protein', 'carbs', 'fat'], function(k, v) {
+            add_row.append('<td><strong>' + Math.round(totals[v])  + '</strong></td>');
+        });
     });
 })(django.jQuery);
 </script>
