@@ -38,3 +38,4 @@ nosetests.xml
 # Custom
 *.sqlite3
 *.swp
+*.swo
