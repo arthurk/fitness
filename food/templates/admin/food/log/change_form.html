@@ -2,28 +2,13 @@
 {% load admin_static food_extras %}
 
 {% block after_field_sets %}
-<fieldset class="module aligned">
-    <div class="form-row">
-        <div>
-            <label for="recipe">Recipe:</label>
-            <select id="recipes">
-                <option value="">---</option>
-                {% for recipe in recipes %}
-                    <option value="{{ recipe.id }}">{{ recipe }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
-</fieldset>
-
-<style type="text/css">
-    td.field-unit input { width: 30px }
-</style>
-
+{# Javascript #}
 <script type="text/javascript">
 (function($) {
     $(document).ready(function($) {
-        // set "unit" to the same value that was specified in the Food object
+        /**
+         * Set "unit" to the same value that was specified in the Food object
+         */
         $("select[id^='id_foodlog_set']").change(function() {
             var foodlog_id = $(this).attr("id").match(/[\d]+/);
             var foodlog_unit = $('#id_foodlog_set-'+foodlog_id+'-unit');
@@ -35,7 +20,9 @@
             });
         });
 
-        // add all Foods that are specified in Recipe
+        /**
+        * Add all Foods that are specified in Recipe
+        */
         var recipe_select = $('#recipes');
         $('#recipes').change(function() {
             // get foods in recipe
@@ -64,12 +51,16 @@
             }); // end done
         }); // end change
 
-        // focus on select box when another row is added
+        /**
+         * focus on select box when another row is added
+         */
         $('.add-row a').click(function() {
             console.log($('.dynamic-foodlog_set .field-food select').last().focus());
         });
 
-        // Add totals at the bottom of the table
+        /**
+         * Add totals at the bottom of the table
+         */
         var totals = {{ log.totals|jsonify }};
         var add_row = $('tr.add-row');
         add_row.find('td:first').attr('colspan', 5);
@@ -79,11 +70,31 @@
     });
 })(django.jQuery);
 </script>
+
+<fieldset class="module aligned">
+    <div class="form-row">
+        <div>
+            <label for="recipe">Recipe:</label>
+            <select id="recipes">
+                <option value="">---</option>
+                {% for recipe in recipes %}
+                    <option value="{{ recipe.id }}">{{ recipe }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</fieldset>
+
+<style type="text/css">
+    td.field-unit input { width: 30px }
+</style>
+
 {% endblock %}
 
 {% block content %}
-
 {{ block.super }}
+
+{% if log %}
 <script type="text/javascript" src="{% static "js/d3.v3.min.js" %}"></script>
 <p><strong>Total: </strong>{{ log.totals.kcal|floatformat:"0" }} kcal</p>
 <div id="chart"></div>
@@ -158,4 +169,5 @@
     }); // end document.ready
 })(django.jQuery);
 </script>
+{% endif %}
 {% endblock %}
