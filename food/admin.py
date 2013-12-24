@@ -39,10 +39,18 @@ class RecipeAdmin(admin.ModelAdmin):
 
 
 class FoodLogInlineForm(ModelForm):
-    serving = forms.ChoiceField(required=False, choices=(
-        (1, 'lol'),
-        (2, 'xxx'),
-    ))
+    serving = forms.ChoiceField(label='Serving', required=False, choices=())
+
+    def __init__(self, *args, **kwargs):
+        form = super(FoodLogInlineForm, self).__init__(*args, **kwargs)
+        food = kwargs.get('instance')
+        if food:
+            servings = [(0, '---')]
+            servings.extend(
+                [(s.id, '%s (%s %s)' % (s.name, s.amount, s.food.unit))
+                 for s in food.food.serving_set.all()])
+            self.fields['serving'].choices = servings
+        return form
 
     class Meta:
         model = FoodLog
