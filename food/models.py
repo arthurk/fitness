@@ -120,7 +120,9 @@ class FoodLog(models.Model):
     log = models.ForeignKey(Log)
     food = models.ForeignKey(Food)
     amount = models.IntegerField()
-    unit = models.CharField(max_length=2)
+    unit = models.CharField(max_length=2,
+                            choices=UNIT_CHOICES,
+                            default=UNIT_CHOICES[0])
 
     def totals(self):
         "Returns totals"
