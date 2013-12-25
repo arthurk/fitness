@@ -55,6 +55,12 @@ class Serving(models.Model):
     food = models.ForeignKey(Food)
     name = models.CharField(max_length=200)
     amount = models.IntegerField(default=100)
+    unit = models.CharField(max_length=2,
+                            choices=UNIT_CHOICES,
+                            default=UNIT_CHOICES[0])
+
+    def __unicode__(self):
+        return "%s %s (%s)" % (self.name, self.food, self.amount)
 
 
 class Recipe(models.Model):

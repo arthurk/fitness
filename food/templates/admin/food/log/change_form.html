@@ -7,16 +7,27 @@
 (function($) {
     $(document).ready(function($) {
         /**
-         * Set "unit" to the same value that was specified in the Food object
+         * User selected a different Food object
          */
-        $("select[id^='id_foodlog_set']").change(function() {
+        $(".field-food select").change(function() {
             var foodlog_id = $(this).attr("id").match(/[\d]+/);
             var foodlog_unit = $('#id_foodlog_set-'+foodlog_id+'-unit');
             var new_food_id = $(this).val();
 
             $.get({% url 'get_food' %}, {id: new_food_id}, function(data) {
-                var new_food_unit = data[0]['fields']['unit'];
+                // set the unit
+                var new_food_unit = data[0]['unit'];
                 foodlog_unit.val(new_food_unit);
+
+                // append custom servings
+                $.each(data[0]['servings'], function(k, serving) {
+                    foodlog_unit.append($('<option/>', {
+                            value: serving['id'],
+                            text: serving['name'] + ' (' +
+                                  serving['amount'] + ' ' +
+                                  serving['unit'] + ')'
+                    }));
+                });
             });
         });
 

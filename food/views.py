@@ -1,6 +1,5 @@
 import json
 
-from django.core import serializers
 from django.http import HttpResponse
 
 from food.models import Recipe, Food
@@ -11,8 +10,15 @@ def get_food(request):
     Returns a JSON serialized Food object for ID
     """
     food_id = request.GET['id']
-    data = serializers.serialize("json", Food.objects.filter(pk=food_id))
-    return HttpResponse(data, content_type='application/json')
+    food = Food.objects.select_related('serving').get(id=food_id)
+    data = {
+        'id': food.id,
+        'unit': food.unit,
+        'servings': [{'id': s.id, 'name': s.name, 'amount': s.amount,
+                      'unit': s.unit}
+                     for s in food.serving_set.all()]
+    }
+    return HttpResponse(json.dumps([data]), content_type='application/json')
 
 
 def get_foods_for_id(request):

@@ -43,10 +43,33 @@ class FoodLogInlineForm(ModelForm):
         form = super(FoodLogInlineForm, self).__init__(*args, **kwargs)
         food = kwargs.get('instance')
         if food:
+            custom_servings = food.food.serving_set.all()
+
+            # add custom servings to unit choices
             self.fields['unit'].choices += [
                 (s.id, '%s (%s %s)' % (s.name, s.amount, s.food.unit))
-                for s in food.food.serving_set.all()]
+                for s in custom_servings]
+
+            # try guess if the user logged a custom serving
+            if custom_servings:
+                for serving in custom_servings:
+                    p = float(self.initial['amount']) / float(serving.amount)
+                    if p.is_integer():
+                        self.initial['amount'] = int(p)
+                        self.initial['unit'] = serving.id
+                        break
         return form
+
+    def clean(self):
+        foodlog = super(FoodLogInlineForm, self).clean()
+        try:
+            serving_id = int(foodlog['unit'])
+            serving = Serving.objects.get(id=serving_id)
+            foodlog['amount'] = serving.amount * foodlog['amount']
+            foodlog['unit'] = serving.unit
+        except:
+            pass
+        return foodlog
 
     class Meta:
         model = FoodLog
