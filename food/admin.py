@@ -8,7 +8,7 @@ from food.models import Food, Recipe, Ingredient, Log, FoodLog, Serving, \
 
 class ServingInline(admin.TabularInline):
     model = Serving
-    extra = 1
+    extra = 0
 
 
 class FoodAdmin(admin.ModelAdmin):
