@@ -74,7 +74,7 @@ class Recipe(models.Model):
     def totals(self):
         "Return total kcal and macros"
         total = dict(kcal=0, protein=0, carbs=0, fat=0)
-        for ingredient in self.ingredient_set.all():
+        for ingredient in self.ingredient_set.select_related('food').all():
             food = ingredient.food
             multiplier = (ingredient.amount / food.amount)
             total['kcal'] += multiplier * food.kcal
@@ -101,7 +101,7 @@ class Ingredient(models.Model):
 
 class Log(models.Model):
     """
-    A Log tracks all the foods eaten on a day
+    Tracks all the foods eaten on a specific day
     """
     day = models.DateField(default=date.today)
     foods = models.ManyToManyField(Food, through='FoodLog')
@@ -109,7 +109,7 @@ class Log(models.Model):
     def totals(self):
         "Returns totals for the day"
         total = dict(kcal=0, protein=0, carbs=0, fat=0)
-        for foodlog in self.foodlog_set.all():
+        for foodlog in self.foodlog_set.select_related('food').all():
             food = foodlog.food
             multiplier = (foodlog.amount / food.amount)
             total['kcal'] += multiplier * food.kcal
@@ -120,6 +120,9 @@ class Log(models.Model):
 
     def __unicode__(self):
         return str(self.day)
+
+    class Meta:
+        ordering = ('-day',)
 
 
 class FoodLog(models.Model):
@@ -138,6 +141,3 @@ class FoodLog(models.Model):
         total['carbs'] = multiplier * food.carbs
         total['fat'] = multiplier * food.fat
         return total
-
-    def __unicode__(self):
-        return '%s%s %s' % (self.amount, self.unit, self.food)

@@ -27,7 +27,6 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -44,7 +43,7 @@ INSTALLED_APPS = (
     'weight',
 
     # 3rd party apps
-    #'debug_toolbar',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,7 +55,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # 3rd party middleware
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
