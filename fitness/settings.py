@@ -39,7 +39,7 @@ INSTALLED_APPS = (
 
     # my apps
     'food',
-    'exercise',
+    #'exercise',
     'weight',
 
     # 3rd party apps

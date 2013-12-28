@@ -54,7 +54,7 @@
                     // populate row
                     $('#' + row_id + ' .field-food select').val(ingredient.food_id);
                     $('#' + row_id + ' .field-amount input').val(ingredient.amount);
-                    $('#' + row_id + ' .field-unit input').val(ingredient.unit);
+                    $('#' + row_id + ' .field-unit select').val(ingredient.unit);
 
                     // set select element back to initial value
                     recipe_select.val('');
@@ -72,12 +72,14 @@
         /**
          * Add totals at the bottom of the table
          */
-        var totals = {{ log.totals|jsonify }};
-        var add_row = $('tr.add-row');
-        add_row.find('td:first').attr('colspan', 5);
-        $.each(['kcal', 'protein', 'carbs', 'fat'], function(k, v) {
-            add_row.append('<td><strong>' + Math.round(totals[v])  + '</strong></td>');
-        });
+        if($('ul.object-tools').length) {
+            var totals = {{ log.totals|jsonify }};
+            var add_row = $('tr.add-row');
+            add_row.find('td:first').attr('colspan', 4);
+            $.each(['kcal', 'protein', 'carbs', 'fat'], function(k, v) {
+                add_row.append('<td><strong>' + Math.round(totals[v])  + '</strong></td>');
+            });
+        }
     });
 })(django.jQuery);
 </script>

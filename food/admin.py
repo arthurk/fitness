@@ -40,7 +40,7 @@ class RecipeAdmin(admin.ModelAdmin):
 
 
 class FoodLogInlineForm(ModelForm):
-    unit = forms.ChoiceField(choices=UNIT_CHOICES)
+    unit = forms.ChoiceField(label='Unit', choices=UNIT_CHOICES)
 
     def __init__(self, *args, **kwargs):
         super(FoodLogInlineForm, self).__init__(*args, **kwargs)
