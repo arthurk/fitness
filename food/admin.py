@@ -1,9 +1,11 @@
-from django.contrib import admin
 from django import forms
+from django.contrib import admin
 from django.forms import ModelForm
 
 from food.models import Food, Recipe, Ingredient, Log, FoodLog, Serving, \
     Goal, UNIT_CHOICES
+
+from collections import Counter
 
 
 class ServingInline(admin.TabularInline):
@@ -129,6 +131,18 @@ class LogAdmin(admin.ModelAdmin):
         extra_context['log'] = Log.objects.get(pk=object_id)
         return super(LogAdmin, self).change_view(
             request, object_id, form_url, extra_context=extra_context)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+
+        # calculate averages
+        logs = Log.objects.all()
+        totals = sum([Counter(l.totals()) for l in logs], Counter())
+        avg = dict((k, int(totals[k]) / len(logs)) for k in totals)
+
+        extra_context['avg'] = avg
+        return super(LogAdmin, self).changelist_view(
+            request, extra_context=extra_context)
 
     def kcal(self, obj):
         return int(round(obj.totals()['kcal']))

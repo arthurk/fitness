@@ -1,0 +1,12 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls admin_static admin_list %}
+
+{% block content %}
+    {{ block.super }}
+
+    <strong>Averages</strong>
+    <em>kcal:</em> {{ avg.kcal }}, 
+    <em>protein:</em> {{ avg.protein }}g, 
+    <em>carbs:</em> {{ avg.carbs }}g, 
+    <em>fat:</em> {{ avg.fat }}g
+{% endblock %}
