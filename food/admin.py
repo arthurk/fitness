@@ -3,7 +3,7 @@ from django import forms
 from django.forms import ModelForm
 
 from food.models import Food, Recipe, Ingredient, Log, FoodLog, Serving, \
-    UNIT_CHOICES
+    Goal, UNIT_CHOICES
 
 
 class ServingInline(admin.TabularInline):
@@ -142,6 +142,12 @@ class LogAdmin(admin.ModelAdmin):
     def fat(self, obj):
         return int(round(obj.totals()['fat']))
 
+
+class GoalAdmin(admin.ModelAdmin):
+    list_display = ('name', 'start_date', 'end_date', 'goal', 'value',
+                    'value2')
+
 admin.site.register(Food, FoodAdmin)
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Log, LogAdmin)
+admin.site.register(Goal, GoalAdmin)

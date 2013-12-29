@@ -141,3 +141,28 @@ class FoodLog(models.Model):
         total['carbs'] = multiplier * food.carbs
         total['fat'] = multiplier * food.fat
         return total
+
+GOAL_CHOICES = (
+    ('G', 'greater than'),
+    ('B', 'between'),
+    ('L', 'less than'),
+)
+
+
+class Goal(models.Model):
+    name = models.CharField(max_length=200)
+    start_date = models.DateField(default=date.today)
+    end_date = models.DateField(blank=True, null=True)
+
+    goal = models.CharField(max_length=2,
+                            choices=GOAL_CHOICES,
+                            default=GOAL_CHOICES[0])
+    value = models.IntegerField()
+    # only used when "between" is selected
+    value2 = models.IntegerField(blank=True, null=True)
+
+    def __unicode__(self):
+        return str(self.name)
+
+    class Meta:
+        ordering = ('-start_date',)
