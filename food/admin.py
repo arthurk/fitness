@@ -129,6 +129,7 @@ class LogAdmin(admin.ModelAdmin):
         extra_context = extra_context or {}
         extra_context['recipes'] = Recipe.objects.all()
         extra_context['log'] = Log.objects.get(pk=object_id)
+        extra_context['objectives'] = Objective.objects.all()
         return super(LogAdmin, self).change_view(
             request, object_id, form_url, extra_context=extra_context)
 

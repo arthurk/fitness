@@ -98,14 +98,21 @@
     </div>
 </fieldset>
 
-<style type="text/css">
-    td.field-unit input { width: 30px }
-</style>
 
 {% endblock %}
 
 {% block content %}
 {{ block.super }}
+
+<strong>Objectives: </strong>
+{% for objective in objectives %}
+    {{ objective }}
+    (
+    {% for target in objective.target_set.all %}
+        {{ target }}; 
+    {% endfor %}
+    )
+{% endfor %}
 
 {% if log %}
 <script type="text/javascript" src="{% static "js/d3.v3.min.js" %}"></script>

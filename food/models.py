@@ -200,4 +200,11 @@ class Target(models.Model):
     value2 = models.IntegerField(blank=True, null=True)
 
     def __unicode__(self):
-        return '%s %s %s %s' % (self.name, self.goal, self.value, self.value2)
+        names = dict(NAME_CHOICES)
+        goals = dict(TARGET_CHOICES)
+        if self.goal == 'B':
+            return "%s %s %s and %s" % (names[self.name], goals[self.goal],
+                                        self.value, self.value2)
+        else:
+            return '%s %s %s' % (names[self.name], goals[self.goal],
+                                 self.value)
