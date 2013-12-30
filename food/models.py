@@ -142,27 +142,50 @@ class FoodLog(models.Model):
         total['fat'] = multiplier * food.fat
         return total
 
-GOAL_CHOICES = (
-    ('G', 'greater than'),
-    ('B', 'between'),
-    ('L', 'less than'),
-)
 
-
-class Goal(models.Model):
+class Objective(models.Model):
+    """
+    An Objective is a group of targets
+    """
     name = models.CharField(max_length=200)
+    desc = models.TextField(blank=True, null=True)
     start_date = models.DateField(default=date.today)
     end_date = models.DateField(blank=True, null=True)
-
-    goal = models.CharField(max_length=2,
-                            choices=GOAL_CHOICES,
-                            default=GOAL_CHOICES[0])
-    value = models.IntegerField()
-    # only used when "between" is selected
-    value2 = models.IntegerField(blank=True, null=True)
 
     def __unicode__(self):
         return str(self.name)
 
     class Meta:
         ordering = ('-start_date',)
+
+NAME_CHOICES = (
+    ('KC', 'kcal'),
+    ('PR', 'protein'),
+    ('CA', 'carbs'),
+    ('FA', 'fat'),
+)
+
+TARGET_CHOICES = (
+    ('G', 'greater than'),
+    ('B', 'between'),
+    ('L', 'less than'),
+)
+
+
+class Target(models.Model):
+    """
+    A specific target (e.g. kcal <= 2000)
+    """
+    objective = models.ForeignKey(Objective)
+    name = models.CharField(max_length=2,
+                            choices=NAME_CHOICES,
+                            default=NAME_CHOICES[0])
+    goal = models.CharField(max_length=1,
+                            choices=TARGET_CHOICES,
+                            default=TARGET_CHOICES[0])
+    value = models.IntegerField()
+    # only used when "between" is selected
+    value2 = models.IntegerField(blank=True, null=True)
+
+    def __unicode__(self):
+        return '%s %s %s %s' % (self.name, self.goal, self.value, self.value2)

@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.forms import ModelForm
 
 from food.models import Food, Recipe, Ingredient, Log, FoodLog, Serving, \
-    Goal, UNIT_CHOICES
+    Objective, Target, UNIT_CHOICES
 
 from collections import Counter
 
@@ -157,11 +157,18 @@ class LogAdmin(admin.ModelAdmin):
         return int(round(obj.totals()['fat']))
 
 
-class GoalAdmin(admin.ModelAdmin):
-    list_display = ('name', 'start_date', 'end_date', 'goal', 'value',
-                    'value2')
+class TargetInline(admin.TabularInline):
+    model = Target
+    extra = 0
+
+
+class ObjectiveAdmin(admin.ModelAdmin):
+    list_display = ('name', 'desc', 'start_date', 'end_date')
+    inlines = (TargetInline,)
+    view_on_site = False
+    save_as = True
 
 admin.site.register(Food, FoodAdmin)
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Log, LogAdmin)
-admin.site.register(Goal, GoalAdmin)
+admin.site.register(Objective, ObjectiveAdmin)
