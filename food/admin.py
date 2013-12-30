@@ -163,10 +163,14 @@ class TargetInline(admin.TabularInline):
 
 
 class ObjectiveAdmin(admin.ModelAdmin):
-    list_display = ('name', 'desc', 'start_date', 'end_date')
+    list_display = ('name', 'desc', 'start_date', 'end_date', 'active')
     inlines = (TargetInline,)
     view_on_site = False
     save_as = True
+
+    def active(self, obj):
+        return obj.is_active()
+    active.boolean = True
 
 admin.site.register(Food, FoodAdmin)
 admin.site.register(Recipe, RecipeAdmin)

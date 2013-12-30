@@ -152,6 +152,18 @@ class Objective(models.Model):
     start_date = models.DateField(default=date.today)
     end_date = models.DateField(blank=True, null=True)
 
+    def is_active(self):
+        """
+        Returns a boolean indicating if the Objective is active (according to
+        the start/end_date)
+        """
+        today = date.today()
+        if self.end_date:
+            active = self.start_date <= today <= self.end_date
+        else:
+            active = self.start_date <= today
+        return active
+
     def __unicode__(self):
         return str(self.name)
 
