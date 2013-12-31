@@ -52,7 +52,7 @@
                     var row_id = $('#foodlog_set-group .dynamic-foodlog_set:last').attr('id');
 
                     // populate row
-                    $('#' + row_id + ' .field-food select').val(ingredient.food_id);
+                    $('#' + row_id + ' .field-food select').val(ingredient.food_id).trigger('change');
                     $('#' + row_id + ' .field-amount input').val(ingredient.amount);
                     $('#' + row_id + ' .field-unit select').val(ingredient.unit);
 
