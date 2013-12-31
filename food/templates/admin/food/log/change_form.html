@@ -6,6 +6,15 @@
 <script type="text/javascript">
 (function($) {
     $(document).ready(function($) {
+        // trigger change event after popup close
+        var orig = dismissAddAnotherPopup;
+        dismissAddAnotherPopup = function(win, newId, newRepr) {
+            var name = windowname_to_id(win.name);
+            r = orig(win, newId, newRepr);
+            $('#' + name).trigger('change');
+            return r
+        }
+
         /**
          * User selected a different Food object
          */
