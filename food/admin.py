@@ -50,9 +50,15 @@ class FoodLogInlineForm(ModelForm):
 
         # existing entry
         if food:
-            custom_servings = food.food.serving_set.all()
+            # remove irrelevant choices (e.g. ml/L if food unit is mg/G)
+            choices = self.fields['unit'].choices
+            if food.food.unit in ('MG', 'G'):
+                self.fields['unit'].choices = choices[:2]
+            elif food.food.unit in ('ML', 'L'):
+                self.fields['unit'].choices = choices[2:]
 
             # add custom servings to unit choices
+            custom_servings = food.food.serving_set.all()
             self.fields['unit'].choices += [
                 (s.id, '%s (%s %s)' % (s.name, s.amount, s.food.unit))
                 for s in custom_servings]
